@@ -35,7 +35,7 @@ class TestClient < Test::Unit::TestCase
       end
       @client = Getty::Client.new
       session = @client.create_session
-      token =  session.CreateSessionResult.SecureToken
+      token =  session.SecureToken
       search_results = @client.search(token, :query => "soccer", :limit => 1)
 
       image_ids = []
@@ -60,7 +60,7 @@ class TestClient < Test::Unit::TestCase
 
       download = @client.download_image(token, :download_tokens => download_tokens)
       download.DownloadUrls.each do |url|
-        os.execute "open url.UrlAttachment"
+        system "open \"#{url.UrlAttachment}\""
       end
     end
   end 

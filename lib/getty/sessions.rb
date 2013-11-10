@@ -18,7 +18,7 @@ module Getty
           }
         }
       end
-      return_error_or_body(response, response.body)
+      return_error_or_body(response, response.body.CreateSessionResult)
     end
 
     def renew_session(token)
@@ -36,7 +36,7 @@ module Getty
           }
         }
       end
-      return_error_or_body(response, response.body)
+      return_error_or_body(response, response.body.RenewSessionResult)
     end
   end
 end
