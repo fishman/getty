@@ -3,7 +3,7 @@ require 'forwardable'
 module Getty
   class Client
     DEFAULT_CONNECTION_MIDDLEWARE = [
-      Faraday::Response::Logger,
+      # Faraday::Response::Logger,
       FaradayMiddleware::EncodeJson,
       FaradayMiddleware::Mashify,
       FaradayMiddleware::ParseJson
