@@ -12,7 +12,7 @@ Example usage:
       # CREATE SESSION
       @client = Getty::Client.new
       session = @client.create_session
-      token =  session.CreateSessionResult.SecureToken
+      token =  session.SecureToken
 
       # SEARCH RESULTS
       search_results = @client.search(token, :query => "soccer", :limit => 1)
@@ -36,7 +36,7 @@ Example usage:
       # PRINT DOWNLOAD STRING
       download = @client.download_image(token, :download_tokens => download_tokens)
       download.DownloadUrls.each do |url|
-        os.execute "open url.UrlAttachment"
+        system "open \"#{url.UrlAttachment}\""
       end
 
 
