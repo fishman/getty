@@ -3,13 +3,16 @@ require 'forwardable'
 module Getty
   class Client
     DEFAULT_CONNECTION_MIDDLEWARE = [
-      Faraday::Request::Multipart,
-      Faraday::Request::UrlEncoded,
+      Faraday::Response::Logger,
+      FaradayMiddleware::EncodeJson,
       FaradayMiddleware::Mashify,
       FaradayMiddleware::ParseJson
     ]
 
     extend Forwardable
+
+    include Sessions
+    include Images
 
     attr_reader :system_id, :system_pwd, :user_name, :user_pwd
 
@@ -21,6 +24,7 @@ module Getty
       @user_pwd = options[:user_pwd] || Getty.user_pwd
       @connection_middleware = options[:connection_middleware] || Getty.connection_middleware || []
       @connection_middleware += DEFAULT_CONNECTION_MIDDLEWARE
+      @ssl = options[:ssl] || { :verify => false }
     end
 
     def ssl
@@ -31,7 +35,7 @@ module Getty
 
     def connection
       params = {}
-      @connection ||= Faraday::Connection.new(:url => api_url, :ssl => @ssl, :params => params, :headers => default_headers) do |builder|
+      @connection ||= Faraday::Connection.new(:url => api_url, :ssl => ssl, :params => params, :headers => default_headers) do |builder|
         @connection_middleware.each do |middleware|
           builder.use *middleware
         end
@@ -50,10 +54,10 @@ module Getty
     # Added just for convenience to avoid having to traverse farther down the response just to get to returned data.
 
     def return_error_or_body(response, response_body)
-      if response.body.meta.code == 200
+      if response.status == 200
         response_body
       else
-        raise Getty::APIError.new(response.body.meta, response.body.response)
+        raise Getty::APIError.new(response.status, response.body)
       end
     end
 
@@ -62,6 +66,7 @@ module Getty
 
       def default_headers
         headers = {
+          :content_type => 'application/json',
           :accept =>  'application/json',
           :user_agent => 'Ruby gem'
         }

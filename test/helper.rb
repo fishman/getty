@@ -10,7 +10,7 @@ end
 require 'test/unit'
 require 'shoulda'
 require 'matchy'
-require 'fakeweb'
+# require 'fakeweb'
 require 'json'
 require 'hashie'
 require 'awesome_print'
@@ -20,7 +20,7 @@ $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
 $LOAD_PATH.unshift(File.dirname(__FILE__))
 require 'getty'
 
-FakeWeb.allow_net_connect = false
+# FakeWeb.allow_net_connect = true
 
 def getty_url(url)
   url =~ /^http/ ? url : "http://api.foursquare.com/v2#{url}"

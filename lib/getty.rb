@@ -27,6 +27,8 @@ module Getty
 
   end
 
+  require 'getty/sessions'
+  require 'getty/images'
   require 'getty/client'
   require 'getty/api_error'
 
