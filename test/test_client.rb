@@ -51,7 +51,6 @@ class TestClient < Test::Unit::TestCase
 
       authorizations = @client.largest_image_authorizations(token, :image_ids => image_ids)
 
-
       download_tokens = []
       authorizations.Images.each do |image| 
         image.Authorizations.each do |auth|
@@ -61,7 +60,7 @@ class TestClient < Test::Unit::TestCase
 
       download = @client.download_image(token, :download_tokens => download_tokens)
       download.DownloadUrls.each do |url|
-        puts url.UrlAttachment
+        os.execute "open url.UrlAttachment"
       end
     end
   end 

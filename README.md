@@ -36,7 +36,7 @@ Example usage:
       # PRINT DOWNLOAD STRING
       download = @client.download_image(token, :download_tokens => download_tokens)
       download.DownloadUrls.each do |url|
-        puts url.UrlAttachment
+        os.execute "open url.UrlAttachment"
       end
 
 
