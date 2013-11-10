@@ -12,13 +12,21 @@ Gem::Specification.new do |s|
   s.date = "2013-11-10"
   s.description = "Gives access to all endpoints in version 1 of Getty's API"
   s.email = ["reza.jelveh@gmail.com"]
+  s.extra_rdoc_files = [
+    "README.md"
+  ]
   s.files = [
     "Gemfile",
     "Gemfile.lock",
+    "README.md",
     "Rakefile",
+    "VERSION",
+    "getty.gemspec",
     "lib/getty.rb",
     "lib/getty/api_error.rb",
     "lib/getty/client.rb",
+    "lib/getty/images.rb",
+    "lib/getty/sessions.rb",
     "test/helper.rb",
     "test/test_client.rb"
   ]
